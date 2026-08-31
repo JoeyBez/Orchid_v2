@@ -14,6 +14,7 @@
     "@supabase/supabase-js": "^2.112.4",
     "github-pages": "^0.1.0",
     "react": "^19.2.8",
+    "react-country-state-city": "^1.1.13",
     "react-dom": "^19.2.8",
     "react-icons": "^5.7.0",
     "react-router-dom": "^7.18.3"

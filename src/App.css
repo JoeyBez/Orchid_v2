@@ -47,6 +47,20 @@ footer{
 }
 
 .profilePic.large{
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
+    border: 5px solid white;
+    overflow: hidden;
+    margin-left: -5px;
+}
+.profilePic > img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.characterLimit{
+    color: grey;
+    font-size: 0.7rem;
+    text-align: right;
 }

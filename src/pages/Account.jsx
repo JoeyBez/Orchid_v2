@@ -3,9 +3,11 @@ import { supabase } from "../../supabaseClient";
 import Loading from "../Loading";
 import './Account.css'
 import { IoLocationOutline } from "react-icons/io5";
-import { redirect, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { changePage } from "../functions";
 
 export default function Account(params){
+    const navigate = useNavigate();
     const {session, getSession} = params;
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -49,6 +51,12 @@ export default function Account(params){
         const { error } = await supabase.auth.signOut();
         window.location.reload();
     }
+
+    function hasLocation(){
+        return user.country.id > -1 ||
+               user.state.id > -1 ||
+               user.city.id > -1;
+    }
     
     return (
         <div>
@@ -57,24 +65,45 @@ export default function Account(params){
             :
             user &&
             <div>
+                <div className="accent" />
                 <div className="accountHeader">
                     <div className="accountHeaderInfo">
-                        <img src="/default.png" className="profilePic large"/>
+                        <div className="profilePic large"><img src={user.avatar || "/default.png"} /></div>
                         <div>
                             <p className="name">{user.name}</p>
                             <p className="title">{user.title}</p>
                         </div>
+                        <p className="bio">{user.bio}</p>
+                        {hasLocation() && <p className="location"><IoLocationOutline />{user.city.id > -1 ? ` ${user.city.name}` : ""}{user.state.id > -1 ? ` ${user.state.state_code}` : ""}{user.country.id > -1 ? ` ${user.country.iso3}` : ""}</p>}
                     </div>
                     {yourAccount ? 
-                        <button className="editProfile">Edit Profile</button> 
+                        <div className="profileButtons">
+                            <button className="editProfile" onClick={() => {changePage("/edit-profile", navigate)}}>Edit Profile</button>
+                            <button className="editProfile" onClick={signOut}>Log Out</button>
+                        </div>
                         : 
-                        <button className="editProfile">Follow</button>
+                        <div className="profileButtons">
+                            <button className="editProfile">Follow</button>
+                        </div>
                     }
                 </div>
-                <p>{user.bio}</p>
-                <p className="location"><IoLocationOutline /> {user.location}</p>
                 <br />
-                {yourAccount && <p style={{textDecoration:"underline", width:"fit-content"}} onClick={signOut}>Log Out</p>}
+                <div className="accountHeaderCounts">
+                    <div className="profileCount">
+                        <p><b>0</b></p>
+                        <p>Discovered</p>
+                    </div>
+                    <div className="spacer"/>
+                    <div className="profileCount">
+                        <p><b>0</b></p>
+                        <p>Followers</p>
+                    </div>
+                    <div className="spacer"/>
+                    <div className="profileCount">
+                        <p><b>0</b></p>
+                        <p>Following</p>
+                    </div>
+                </div>
             </div>
             }
         </div>

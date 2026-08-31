@@ -1,23 +1,27 @@
 .accountHeader{
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2.5fr 1fr;
     gap: 10px;
-    align-items: center;
+    text-align: left;
+    margin-top: var(--account-accent-height);
 }
 
-.accountHeaderInfo{
+.accent{
+    background-color: var(--accent);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(125px + var(--account-accent-height));
+    z-index: -1;
+}
+
+/* .accountHeaderInfo{
     width: 100%;
     display: flex;
     gap: 10px;
     align-items: center;
-}
-
-.accountHeaderCounts{
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    text-align: center;
-}
+} */
 
 .name{
     font-size: 1.2rem;
@@ -28,6 +32,7 @@
     margin-top: 5px;
     color: grey;
     font-size: 0.8rem;
+    width: 70%;
 }
 
 .editProfile{
@@ -36,7 +41,7 @@
     color: white;
     background-color: var(--accent);
     padding: 10px;
-    width: 100px;
+    width: 100%;
     height: 40px;
 }
 
@@ -47,5 +52,39 @@
 .location{
     color: grey;
     align-content: center;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+}
+
+.accountHeaderCounts{
+    display: grid;
+    grid-template-columns: 1fr 1rem 1fr 1rem 1fr;
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+}
+.spacer{
+    background-color: var(--accent);
+    width: 1px;
+    height: 50%;
+}
+
+.profileButtons{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profileCount{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+}
+.profileCount > p{
+    margin: 0;
+}
+
+.bio{
+    width: 90%;
 }

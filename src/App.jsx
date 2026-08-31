@@ -6,6 +6,7 @@ import Login from './login/Login';
 import Home from './pages/Home';
 import { IoHome, IoPersonCircle } from "react-icons/io5";
 import Account from './pages/Account';
+import EditProfile from './pages/EditProfile';
 
 function App() {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/account" element={<Account session={user || null} getSession={getSession}/>} />
+           <Route path="/edit-profile" element={<EditProfile />} />
         </Routes>
       </div>
       {/* {location.pathname !== "/login" &&
