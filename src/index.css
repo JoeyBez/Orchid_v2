@@ -17,3 +17,7 @@ button{
 input{
     border-radius: var(--border-radius);
 }
+
+body{
+    background-color: rgb(235, 234, 234);
+}

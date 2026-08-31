@@ -4,10 +4,36 @@ header{
     right: 0;
     top: 0;
     text-align: center;
-    border: 1px solid red;
-    padding-top: 30px;
+    justify-items: center;
+    height: 70px;
+    z-index: 10;
+    background-color: white;
+}
+
+footer{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    justify-items: center;
+    align-content: center;
+    height: fit-content;
+    color: var(--accent);
+    z-index: 10;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .logo{
     color: var(--accent);
+    cursor: pointer;
+    width: fit-content;
+}
+
+.link{
+    cursor: pointer;
+    color: var(--accent);
+    text-decoration: none;
 }
