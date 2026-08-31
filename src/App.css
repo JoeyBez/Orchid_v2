@@ -1,0 +1,13 @@
+header{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    text-align: center;
+    border: 1px solid red;
+    padding-top: 30px;
+}
+
+.logo{
+    color: var(--accent);
+}

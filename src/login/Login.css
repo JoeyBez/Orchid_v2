@@ -1,0 +1,79 @@
+.loginForm{
+    width: 300px;
+    max-width: 60vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.formInputContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label{
+    font-size: small;
+}
+
+.formInput{
+    border: 1px solid var(--input-border);
+    height: 30px;
+}
+
+.loginSwitch{
+    display: flex;
+    gap: 0.5rem;
+    font-size: small;
+    justify-content: center;
+    width: 100%;
+}
+.loginSwitch > div{
+    text-decoration: underline;
+    color: var(--accent);
+    cursor: pointer;
+}
+
+.loginButton{
+    border: none;
+    background-color: var(--accent);
+    color: white;
+    height: 30px;
+    width: 100%;
+}
+
+.passwordRequirements{
+    font-size: 0.7rem;
+    margin: 0;
+    padding-left: 1rem;
+}
+.passwordRequirements > li{
+    color: grey;
+    padding: 0.1rem;
+}
+.passwordRequirements > li.checked{
+    color: green;
+    padding: 0.1rem;
+}
+
+.mainContainer{
+    margin: auto;
+    width: fit-content;
+    padding: 50px;
+    justify-items: center;
+    background-color: white;
+    height: fit-content;
+    align-content: center;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.background{
+    background-color: var(--accent);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right:0;
+    align-content: center;
+}
