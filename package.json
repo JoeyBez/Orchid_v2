@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "github-pages": "^3.0.2",
+    "@supabase/supabase-js": "^2.112.4",
+    "github-pages": "^0.1.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
