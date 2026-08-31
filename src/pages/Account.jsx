@@ -4,7 +4,7 @@ import Loading from "../Loading";
 import './Account.css'
 import { IoLocationOutline } from "react-icons/io5";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { changePage } from "../functions";
+import { changePage, follow, followerCount, followingCount, isFollowing } from "../functions";
 
 export default function Account(params){
     const navigate = useNavigate();
@@ -15,10 +15,13 @@ export default function Account(params){
     const [user, setUser] = useState();
     const [yourAccount, setYourAccount] = useState(false);
 
+    const [followers, setFollowers] = useState(0);
+    const [following, setFollowing] = useState(0);
+    const [isFollowingUser, setIsFollowingUser] = useState(false);
+
     useEffect(() => {
         async function getUser(){
             const id = searchParams.get('user');
-            // const id = await getSession();
             setLoading(true);
             setUser(null);
             if(id == null) return;
@@ -36,6 +39,7 @@ export default function Account(params){
 
             setUser(data[0]);
             setLoading(false);
+            // console.log(isf);
         }
         isYourAccount();
         getUser();
@@ -56,6 +60,21 @@ export default function Account(params){
         return user.country.id > -1 ||
                user.state.id > -1 ||
                user.city.id > -1;
+    }
+
+    useEffect(() => {
+        if(!session || !user) return;
+        updateCounts();
+    }, [session, user]);
+
+    async function updateCounts(){
+        const isf = await isFollowing(session.user.id, user.authId);
+        setIsFollowingUser(isf);
+
+        const f = await followerCount(user.authId);
+        setFollowers(f);
+        const fing = await followingCount(user.authId);
+        setFollowing(fing);
     }
     
     return (
@@ -83,7 +102,7 @@ export default function Account(params){
                         </div>
                         : 
                         <div className="profileButtons">
-                            <button className="editProfile">Follow</button>
+                            <button className={`editProfile ${isFollowingUser ? "following" : ""}`} onClick={() => follow(session.user.id, user.authId, updateCounts)}>{isFollowingUser ? "Following" : "Follow"}</button>
                         </div>
                     }
                 </div>
@@ -95,14 +114,28 @@ export default function Account(params){
                     </div>
                     <div className="spacer"/>
                     <div className="profileCount">
-                        <p><b>0</b></p>
+                        <p><b>{followers}</b></p>
                         <p>Followers</p>
                     </div>
                     <div className="spacer"/>
                     <div className="profileCount">
-                        <p><b>0</b></p>
+                        <p><b>{following}</b></p>
                         <p>Following</p>
                     </div>
+                </div>
+                <br />
+                <br />
+                <div className="profileBackground">
+                    <div className="profileSection">
+                        <p className="profileSectionHeader">Featured Work</p>
+                        <div className="emptyProfileSection"><small>No featured work</small></div>
+                    </div>
+                    {yourAccount && 
+                    <div className="profileSection">
+                        <p className="profileSectionHeader">Artists you follow</p>
+                        <div className="emptyProfileSection"><small>You are not folliwing any artists</small></div>
+                    </div>
+                    }
                 </div>
             </div>
             }

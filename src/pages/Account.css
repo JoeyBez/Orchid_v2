@@ -8,7 +8,7 @@
 
 .accent{
     background-color: var(--accent);
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -44,9 +44,14 @@
     width: 100%;
     height: 40px;
 }
+.editProfile.following{
+    border: 1px solid var(--accent);
+    background-color: white;
+    color: var(--accent);
+}
 
 .seperator{
-    border-bottom: 1px solid rgb(192, 190, 190);
+    border-bottom: 1px solid rgb(212, 211, 211);
 }
 
 .location{
@@ -87,4 +92,36 @@
 
 .bio{
     width: 90%;
+}
+
+.profileBackground{
+    background-color: rgba(0, 0, 0, 0.05);
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    overflow-x: hidden;
+}
+
+.profileSection{
+    left: 0;
+    right: 0;
+    position: relative;
+    /* border: 1px solid red; */
+    text-align: center;
+    height: 150px;
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 15px;
+}
+.profileSectionHeader{
+    position: absolute;
+    color: black;
+    text-align: left;
+}
+.emptyProfileSection{
+    color: grey;
+    align-content: center;
+    /* border: 1px solid blue; */
+    height: 100%;
 }
