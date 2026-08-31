@@ -8,6 +8,10 @@ header{
     height: 70px;
     z-index: 10;
     background-color: white;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 footer{
@@ -36,4 +40,13 @@ footer{
     cursor: pointer;
     color: var(--accent);
     text-decoration: none;
+}
+
+.profilePic{
+    border-radius: 100px;
+}
+
+.profilePic.large{
+    width: 70px;
+    height: 70px;
 }

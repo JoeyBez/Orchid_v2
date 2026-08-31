@@ -32,10 +32,10 @@ export default function Login(){
         setResult(res);
         setLoading(false);
 
-        if(!res){
+        if(res.user){
             const { error } = await supabase
             .from('users')
-            .insert({ name: name, email: email });
+            .insert({ name: name, email: email, authId: res.user.id });
             
             if(error){
                 console.log(error);

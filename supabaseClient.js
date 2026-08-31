@@ -25,5 +25,5 @@ export async function signUpNewUser(email, password) {
     },
   })
   if(error) return error;
-  return null;
+  return data;
 }

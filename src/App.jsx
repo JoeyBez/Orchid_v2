@@ -10,10 +10,12 @@ import Account from './pages/Account';
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [user, setUser] = useState();
 
   useEffect(() => {
     async function getSession(){
       const { data: { session } } = await supabase.auth.getSession();
+      setUser(session);
       if(!session) navigate('/login');
     }
     getSession();
@@ -23,23 +25,25 @@ function App() {
     <div>
       {location.pathname !== "/login" && 
       <header>
+        <Link to="/" reloadDocument className='link'><h2><IoHome /></h2></Link>
         <Link className='logo link' to="/" reloadDocument><h2>Orchid</h2></Link>
+        <Link to={`/account?user=${user ? user.user.id : null}`} reloadDocument className='link'><h2><IoPersonCircle /></h2></Link>
       </header>
       }
       <div style={{marginBottom: "70px"}} />
-      <div style={{padding: "10px"}}>
+      <div style={{padding: "20px"}}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/account" element={<Account />} />
+          <Route path="/account" element={<Account session={user || null} />} />
         </Routes>
       </div>
-      {location.pathname !== "/login" &&
+      {/* {location.pathname !== "/login" &&
       <footer>
         <Link to="/" reloadDocument className='link'><h2><IoHome /></h2></Link>
         <Link to="/account" reloadDocument className='link'><h2><IoPersonCircle /></h2></Link>
       </footer>
-      }
+      } */}
     </div>
   )
 }

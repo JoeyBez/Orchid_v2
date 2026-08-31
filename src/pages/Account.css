@@ -1,0 +1,45 @@
+.accountHeader{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    align-items: center;
+}
+
+.accountHeaderInfo{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.accountHeaderCounts{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}
+
+.name{
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+.title{
+    margin-top: 5px;
+    color: grey;
+    font-size: 0.8rem;
+}
+
+.editProfile{
+    border-radius: var(--border-radius);
+    border: none;
+    color: white;
+    background-color: var(--accent);
+    padding: 10px;
+    width: 100px;
+    height: 40px;
+}
+
+.seperator{
+    border-bottom: 1px solid rgb(192, 190, 190);
+}
