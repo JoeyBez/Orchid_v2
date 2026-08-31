@@ -2,20 +2,24 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 import Loading from "../Loading";
 import './Account.css'
-import { useSearchParams } from "react-router-dom";
+import { IoLocationOutline } from "react-icons/io5";
+import { redirect, useSearchParams } from "react-router-dom";
 
 export default function Account(params){
-    const {session} = params;
+    const {session, getSession} = params;
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState();
+    const [yourAccount, setYourAccount] = useState(false);
 
     useEffect(() => {
         async function getUser(){
             const id = searchParams.get('user');
+            // const id = await getSession();
             setLoading(true);
-            if(!id) return;
+            setUser(null);
+            if(id == null) return;
 
             const { data, error } = await supabase
             .from('users')
@@ -31,8 +35,20 @@ export default function Account(params){
             setUser(data[0]);
             setLoading(false);
         }
+        isYourAccount();
         getUser();
     }, [searchParams]);
+
+    async function isYourAccount(){
+        const id = searchParams.get('user');
+        const sesh = await getSession();
+        setYourAccount(id == sesh);
+    }
+
+    async function signOut(){
+        const { error } = await supabase.auth.signOut();
+        window.location.reload();
+    }
     
     return (
         <div>
@@ -43,21 +59,22 @@ export default function Account(params){
             <div>
                 <div className="accountHeader">
                     <div className="accountHeaderInfo">
-                        <img src="../src/assets/default.png" className="profilePic large"/>
+                        <img src="/default.png" className="profilePic large"/>
                         <div>
                             <p className="name">{user.name}</p>
                             <p className="title">{user.title}</p>
                         </div>
                     </div>
-                    {session ? session.user.id == user.authId && <button className="editProfile">Edit Profile</button> : null}
+                    {yourAccount ? 
+                        <button className="editProfile">Edit Profile</button> 
+                        : 
+                        <button className="editProfile">Follow</button>
+                    }
                 </div>
+                <p>{user.bio}</p>
+                <p className="location"><IoLocationOutline /> {user.location}</p>
                 <br />
-                <div className="accountHeaderCounts">
-                    <p><b>0</b> Discovered</p>
-                    <p><b>0</b> Followers</p>
-                </div>
-                <br />
-                <div className="seperator" />
+                {yourAccount && <p style={{textDecoration:"underline", width:"fit-content"}} onClick={signOut}>Log Out</p>}
             </div>
             }
         </div>

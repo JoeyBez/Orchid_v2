@@ -12,14 +12,16 @@ function App() {
   const location = useLocation();
   const [user, setUser] = useState();
 
+  async function getSession(){
+    const { data: { session } } = await supabase.auth.getSession();
+    setUser(session);
+    if(!session) navigate('/login');
+    return session.user.id;
+  }
+
   useEffect(() => {
-    async function getSession(){
-      const { data: { session } } = await supabase.auth.getSession();
-      setUser(session);
-      if(!session) navigate('/login');
-    }
     getSession();
-  }, []);
+  }, [window.location.href]);
 
   return (
     <div>
@@ -27,7 +29,7 @@ function App() {
       <header>
         <Link to="/" className='link'><h2><IoHome /></h2></Link>
         <Link className='logo link' to="/"><h2>Orchid</h2></Link>
-        <Link to={`/account?user=${user ? user.user.id : null}`} className='link'><h2><IoPersonCircle /></h2></Link>
+        <Link to={`/account?user=${user ? user.user.id : null}`} className='link' reloadDocument><h2><IoPersonCircle /></h2></Link>
       </header>
       }
       <div style={{marginBottom: "70px"}} />
@@ -35,7 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/account" element={<Account session={user || null} />} />
+          <Route path="/account" element={<Account session={user || null} getSession={getSession}/>} />
         </Routes>
       </div>
       {/* {location.pathname !== "/login" &&

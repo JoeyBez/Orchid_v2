@@ -43,3 +43,9 @@
 .seperator{
     border-bottom: 1px solid rgb(192, 190, 190);
 }
+
+.location{
+    color: grey;
+    align-content: center;
+    font-size: 0.9rem;
+}
