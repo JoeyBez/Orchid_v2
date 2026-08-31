@@ -25,9 +25,9 @@ function App() {
     <div>
       {location.pathname !== "/login" && 
       <header>
-        <Link to="/" reloadDocument className='link'><h2><IoHome /></h2></Link>
-        <Link className='logo link' to="/" reloadDocument><h2>Orchid</h2></Link>
-        <Link to={`/account?user=${user ? user.user.id : null}`} reloadDocument className='link'><h2><IoPersonCircle /></h2></Link>
+        <Link to="/" className='link'><h2><IoHome /></h2></Link>
+        <Link className='logo link' to="/"><h2>Orchid</h2></Link>
+        <Link to={`/account?user=${user ? user.user.id : null}`} className='link'><h2><IoPersonCircle /></h2></Link>
       </header>
       }
       <div style={{marginBottom: "70px"}} />
