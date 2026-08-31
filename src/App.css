@@ -46,12 +46,20 @@ footer{
     border-radius: 100px;
 }
 
-.profilePic.large{
+.profilePic{
     width: 90px;
     height: 90px;
     border: 5px solid white;
     overflow: hidden;
+}
+.profilePic.large{
+    width: 90px;
+    height: 90px;
     margin-left: -5px;
+}
+.profilePic.small{
+    width: 70px;
+    height: 70px;
 }
 .profilePic > img{
     object-fit: cover;
@@ -63,4 +71,11 @@ footer{
     color: grey;
     font-size: 0.7rem;
     text-align: right;
+}
+
+.textLink{
+    color: grey;
+    font-size: 0.8rem;
+    /* border-bottom: 1px solid grey; */
+    text-decoration: none;
 }

@@ -81,7 +81,7 @@ export default function EditProfile(){
             setUploading(true);
             // 3. Upload the file to your specific bucket
             const { data, error } = await supabase.storage
-            .from('avatars') // Replace with your bucket name
+            .from('avatars')
             .upload(fileName, file, {
                 cacheControl: '3600',
                 upsert: true,

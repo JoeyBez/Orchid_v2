@@ -1,0 +1,17 @@
+.profileList{
+    position: relative;
+    align-content: center;
+    height: 100%;
+    display: flex;
+    gap: 30px;
+    overflow-x: scroll;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.profileContainer{
+    text-align: center;
+    justify-items: center;
+    width: min-content;
+    cursor: pointer;
+}
