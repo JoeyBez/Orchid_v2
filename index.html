@@ -5,15 +5,19 @@
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
-      (function () {
-        const redirect = sessionStorage.redirect;
+      const redirect = sessionStorage.redirect;
 
+      if (redirect) {
         delete sessionStorage.redirect;
 
-        if (redirect && redirect !== window.location.pathname) {
-          history.replaceState(null, null, redirect);
-        }
-      })();
+        const url = new URL(redirect);
+
+        history.replaceState(
+          null,
+          null,
+          url.pathname + url.search + url.hash
+        );
+      }
     </script>
     <title>Orchid</title>
   </head>
