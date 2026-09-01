@@ -2,14 +2,14 @@ import { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
 export default function Tags(params){
-    const {tags, setTags} = params;
+    const {tags, setTags, max} = params;
     const [newTag, setNewTag] = useState("");
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' || e.key === ',') {
             e.preventDefault(); // Stops the comma from typing out
-            if(tags.length >= 5) return;
-            
+            if(tags.length >= max) return;
+
             const trimmedValue = newTag.trim();
             if (trimmedValue) {
                 setTags([...tags, trimmedValue]);
@@ -36,15 +36,15 @@ export default function Tags(params){
                 flexWrap:"wrap"
             }}>
                 {tags.map((value, index) => (
-                    <Tag text={value} key={index} tags={tags} setTags={setTags} index={index} />
+                    <Tag text={value} key={index} tags={tags} setTags={setTags} index={index} removable={true} />
                 ))}
             </div>
         </div>
     );
 }
 
-function Tag(params){
-    const {text, tags, setTags, index} = params;
+export function Tag(params){
+    const {text, tags, setTags, index, removable} = params;
 
     return(
         <div style={{
@@ -56,9 +56,9 @@ function Tag(params){
             gap: "5px"
         }}>
             <small>{text || ""}</small>
-            <IoCloseOutline style={{cursor:"pointer"}} onClick={() => {
+            {removable && <IoCloseOutline style={{cursor:"pointer"}} onClick={() => {
                 setTags(tags.toSpliced(index, 1));
-            }}/>
+            }}/>}
         </div>  
     );
 }

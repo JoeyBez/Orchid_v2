@@ -56,9 +56,9 @@ export default function EditProfile(){
         const { error } = await supabase
         .from('users')
         .update({ 
-            name: name, 
-            title: title,
-            bio: bio,
+            name: name.trim(), 
+            title: title.trim(),
+            bio: bio.trim(),
             country: country,
             state: state,
             city: city,
@@ -165,8 +165,8 @@ export default function EditProfile(){
             </div>
             <div className="formInputContainer">
                 <label>Tags</label>
-                <small className="characterLimit" style={{textAlign:"left"}}>Helps with discovery. Users can search for keywords (Max of 5)</small>
-                <Tags tags={keywords} setTags={setKeywords} />
+                <small className="characterLimit" style={{textAlign:"left"}}>Helps with discovery. Users can search for keywords (Max 3)</small>
+                <Tags tags={keywords} setTags={setKeywords} max={3} />
             </div>
             <br />
             <h3>Location</h3>

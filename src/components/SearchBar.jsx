@@ -32,7 +32,13 @@ export default function SearchBar(){
 
     return (
         <div style={{width:"100%", alignContent:"center"}}>
-            <input className='formInput' style={{width:"100%", height:"25px"}} placeholder="Search artists..." value={search} onChange={(e) => setSearch(e.target.value)}/>
+            <input 
+                className='formInput' 
+                style={{width:"100%", height:"25px"}} 
+                placeholder="Search artists..." 
+                value={search} 
+                onChange={(e) => setSearch(e.target.value)}
+            />
             <div className={`searchResults ${search.length == 0 && "hide"}`}>
                 <div className="resultsArea">
                     <small style={{color:"grey"}}>Results {`(${results.length})`}</small>

@@ -9,6 +9,7 @@ import FollowingList from "../components/FollowingList";
 import { IoIosLink } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
 import ImageUpload from "../components/ImageUpload";
+import { Tag } from "../components/Tags";
 
 export default function Account(params){
     const navigate = useNavigate();
@@ -100,6 +101,20 @@ export default function Account(params){
                         </div>
                         <div style={{margin:"auto"}} className="location">{hasLocation() && <p><IoLocationOutline />{user.city.id > -1 ? ` ${user.city.name}` : ""}{user.state.id > -1 ? ` ${user.state.state_code}` : ""} &nbsp;&bull;&nbsp;&nbsp;</p>}<p><b>{formatNumber(followers)}</b> followers</p></div>
                         <p style={{margin:"auto"}} className="bio">{user.bio}</p>
+                        {user.keywords.length > 0 && <div style={{
+                            marginLeft:"auto",
+                            marginRight:"auto",
+                            display:"flex",
+                            gap:"10px",
+                            width: "90%",
+                            flexWrap:"wrap",
+                            justifyContent:"center",
+                            marginTop:"1.5rem"
+                        }}>
+                            {user.keywords.split(', ').map((value, index) => (
+                                <Tag text={value} key={index} removable={false} />
+                            ))}
+                        </div>}
                     </div>
                     {/* <div style={{display:"flex", gap:"10px"}}>
                         <a href="https://joeybezner.com" target="_blank" className="textLink"><IoGlobeOutline /> Website</a>
