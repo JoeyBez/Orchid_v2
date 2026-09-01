@@ -8,6 +8,7 @@ import { changePage, follow, followerCount, followingCount, formatNumber, isFoll
 import FollowingList from "../components/FollowingList";
 import { IoIosLink } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
+import ImageUpload from "../components/ImageUpload";
 
 export default function Account(params){
     const navigate = useNavigate();
@@ -113,7 +114,12 @@ export default function Account(params){
                 <br />
                 <div className="profileBackground">
                     <div className="profileSection">
-                        <p className="profileSectionHeader">Featured Work</p>
+                        <div style={{display:"grid", gridTemplateColumns:"1fr 1fr"}}>
+                            <p className="profileSectionHeader">Featured Work</p>
+                            {yourAccount && <div style={{textAlign:"right", alignContent:"center"}}>
+                                <ImageUpload />
+                            </div>}
+                        </div>
                         <div className="emptyProfileSection"><small>No featured work</small></div>
                     </div>
                     {/* {yourAccount && 

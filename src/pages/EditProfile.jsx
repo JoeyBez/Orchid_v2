@@ -5,6 +5,7 @@ import { CitySelect, CountrySelect, StateSelect } from "react-country-state-city
 import "react-country-state-city/dist/react-country-state-city.css";
 import { supabase } from "../../supabaseClient";
 import { useNavigate } from "react-router-dom";
+import Tags from "../components/Tags";
 
 export default function EditProfile(){
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function EditProfile(){
     const [name, setName] = useState("");
     const [title, setTitle] = useState("");
     const [bio, setBio] = useState("");
+    const [keywords, setKeywords] = useState([]);
 
     const [country, setCountry] = useState();
     const [state, setState] = useState();
@@ -40,6 +42,7 @@ export default function EditProfile(){
                 setCountry(user.country);
                 setState(user.state);
                 setCity(user.city);
+                setKeywords(user.keywords.split(', '));
             }
 
             setLoading(false);
@@ -58,7 +61,8 @@ export default function EditProfile(){
             bio: bio,
             country: country,
             state: state,
-            city: city
+            city: city,
+            keywords: keywords.join(', ')
         })
         .eq('id', userId)
 
@@ -158,6 +162,11 @@ export default function EditProfile(){
                 <label>Bio</label>
                 <input className="formInput" value={bio} onChange={(e) => setBio(e.target.value)} maxLength={160}/>
                 <small className="characterLimit">({bio.length} / 160)</small>
+            </div>
+            <div className="formInputContainer">
+                <label>Tags</label>
+                <small className="characterLimit" style={{textAlign:"left"}}>Helps with discovery. Users can search for keywords (Max of 5)</small>
+                <Tags tags={keywords} setTags={setKeywords} />
             </div>
             <br />
             <h3>Location</h3>

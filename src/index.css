@@ -4,10 +4,12 @@
     /* colors */
     --input-border: rgb(200, 200, 200);
     --accent: rgb(123, 90, 141);
+    --tag-bg: rgb(235, 235, 235);
 
     /* numbers */
     --border-radius: 5px;
     --account-accent-height: 55px;
+    --tag-padding: 8px;
 
     overflow-x: hidden;
 }
@@ -15,6 +17,9 @@
 button{
     border-radius: var(--border-radius);
     cursor: pointer;
+    border: none;
+    background-color: var(--accent);
+    color: white;
 }
 
 input{
@@ -30,4 +35,8 @@ input{
 /* Firefox */
 * {
   scrollbar-width: thin; /* Removes arrows and makes the bar sleeker */
+}
+
+.hide{
+  display: none;
 }

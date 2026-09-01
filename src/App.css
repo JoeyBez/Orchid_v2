@@ -85,3 +85,9 @@ footer{
     border: 1px solid red;
     height: 30px;
 }
+
+.labelButton{
+    color: var(--accent);
+    font-size: 1.4rem;
+    cursor: pointer;
+}
