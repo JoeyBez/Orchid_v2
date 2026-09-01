@@ -99,8 +99,8 @@ export default function Account(params){
                             <p className="name">{user.name}</p>
                             <p className="title">{user.title}</p>
                         </div>
-                        <div style={{margin:"auto"}} className="location">{hasLocation() && <p><IoLocationOutline />{user.city.id > -1 ? ` ${user.city.name}` : ""}{user.state.id > -1 ? ` ${user.state.state_code}` : ""} &nbsp;&bull;&nbsp;&nbsp;</p>}<p><b>{formatNumber(followers)}</b> followers</p></div>
-                        <p style={{margin:"auto"}} className="bio">{user.bio}</p>
+                        <div style={{margin:"-0.5rem auto -0.5rem auto"}} className="location">{hasLocation() && <p><IoLocationOutline />{user.city.id > -1 ? ` ${user.city.name}` : ""}{user.state.id > -1 ? ` ${user.state.state_code}` : ""} &nbsp;&bull;&nbsp;&nbsp;</p>}<p><b>{formatNumber(followers)}</b> followers</p></div>
+                        <div style={{margin:"auto"}} className="bio"><p>{user.bio}</p></div>
                         {user.keywords.length > 0 && <div style={{
                             marginLeft:"auto",
                             marginRight:"auto",
