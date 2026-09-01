@@ -18,7 +18,7 @@
 .accountHeaderInfo{
     width: 100%;
     text-align: center;
-    justify-items: center;
+    justify-content: center;
 }
 
 .name{
@@ -33,6 +33,22 @@
 }
 
 .editProfile{
+    position: absolute;
+    margin-top: 50px;
+    color: var(--accent);
+    cursor: pointer;
+}
+.editProfile.right{
+    right: 20px;
+    font-size: 1.3rem;
+}
+.editProfile.left{
+    left: 20px;
+    font-size: 0.8rem;
+    text-decoration: underline;
+}
+
+.followButton{
     border-radius: var(--border-radius);
     border: none;
     color: white;
@@ -41,7 +57,7 @@
     width: 100px;
     height: 40px;
 }
-.editProfile.following{
+.followButton.following{
     border: 1px solid var(--accent);
     background-color: white;
     color: var(--accent);

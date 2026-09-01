@@ -7,6 +7,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { changePage, follow, followerCount, followingCount, formatNumber, isFollowing } from "../functions";
 import FollowingList from "../components/FollowingList";
 import { IoIosLink } from "react-icons/io";
+import { FaRegEdit } from "react-icons/fa";
 
 export default function Account(params){
     const navigate = useNavigate();
@@ -88,27 +89,30 @@ export default function Account(params){
             <div>
                 <div className="accent" />
                 <div className="accountHeader">
+                    {yourAccount && <div className="editProfile right" onClick={() => {changePage("/edit-profile", navigate)}}><FaRegEdit /></div>}
+                    {yourAccount && <div className="editProfile left" onClick={signOut}>Log Out</div>}
                     <div className="accountHeaderInfo">
-                        <div className="profilePic large" style={{border: "10px solid white"}}><img src={user.avatar || "/default.png"} /></div>
-                        <div>
+                        <div className="profilePic large" style={{border: "10px solid white", backgroundColor:"white", margin:"auto"}}><img src={user.avatar || "/default.png"} /></div>
+                        <div style={{margin:"auto"}}>
                             <p className="name">{user.name}</p>
                             <p className="title">{user.title}</p>
                         </div>
-                        <div className="location">{hasLocation() && <p><IoLocationOutline />{user.city.id > -1 ? ` ${user.city.name}` : ""}{user.state.id > -1 ? ` ${user.state.state_code}` : ""} &nbsp;&bull;&nbsp;&nbsp;</p>}<p><b>{formatNumber(followers)}</b> followers</p></div>
-                        <p className="bio">{user.bio}</p>
+                        <div style={{margin:"auto"}} className="location">{hasLocation() && <p><IoLocationOutline />{user.city.id > -1 ? ` ${user.city.name}` : ""}{user.state.id > -1 ? ` ${user.state.state_code}` : ""} &nbsp;&bull;&nbsp;&nbsp;</p>}<p><b>{formatNumber(followers)}</b> followers</p></div>
+                        <p style={{margin:"auto"}} className="bio">{user.bio}</p>
                     </div>
                     {/* <div style={{display:"flex", gap:"10px"}}>
                         <a href="https://joeybezner.com" target="_blank" className="textLink"><IoGlobeOutline /> Website</a>
                         <a href="https://joeybezner.com" target="_blank" className="textLink"><IoLogoInstagram /> Instagram</a>
                     </div> */}
-                    <div className="profileButtons">
-                        {yourAccount ? 
-                            <div style={{display:"flex", gap:"5px"}}>
-                                <button className="editProfile" onClick={() => {changePage("/edit-profile", navigate)}}>Edit Profile</button>
-                                <button className="editProfile" onClick={signOut}>Log Out</button>
-                            </div>
-                            : 
-                            <button className={`editProfile ${isFollowingUser ? "following" : ""}`} onClick={() => follow(session.user.id, user.authId, updateCounts)}>{isFollowingUser ? "Following" : "Follow"}</button>
+                    <div style={{margin:"auto", marginTop:"30px"}} className="profileButtons">
+                        {!yourAccount &&
+                        // ? 
+                        //     <div style={{display:"flex", gap:"5px"}}>
+                        //         <button className="editProfile" onClick={() => {changePage("/edit-profile", navigate)}}>Edit Profile</button>
+                        //         <button className="editProfile" onClick={signOut}>Log Out</button>
+                        //     </div>
+                        //     : 
+                            <button className={`followButton ${isFollowingUser ? "following" : ""}`} onClick={() => follow(session.user.id, user.authId, updateCounts)}>{isFollowingUser ? "Following" : "Follow"}</button>
                         }
                     </div>
                 </div>
