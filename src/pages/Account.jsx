@@ -20,7 +20,7 @@ export default function Account(params){
     const [user, setUser] = useState();
     const [yourAccount, setYourAccount] = useState(false);
 
-    const [followers, setFollowers] = useState(0);
+    const [followers, setFollowers] = useState(" ");
     const [following, setFollowing] = useState(0);
     const [isFollowingUser, setIsFollowingUser] = useState(false);
 
@@ -48,7 +48,7 @@ export default function Account(params){
         }
         isYourAccount();
         getUser();
-    }, [searchParams]);
+    }, [searchParams.get('user')]);
 
     async function isYourAccount(){
         const id = searchParams.get('user');

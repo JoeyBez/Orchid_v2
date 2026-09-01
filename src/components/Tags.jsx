@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function Tags(params){
     const {tags, setTags, max} = params;
@@ -45,6 +46,8 @@ export default function Tags(params){
 
 export function Tag(params){
     const {text, tags, setTags, index, removable} = params;
+    const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     return(
         <div style={{
@@ -55,7 +58,15 @@ export function Tag(params){
             padding: "var(--tag-padding)",
             gap: "5px"
         }}>
-            <small>{text || ""}</small>
+            <small
+                style={{cursor:removable ? "" : "pointer"}}
+                onClick={() => {
+                    if(removable) {return;}
+                    else { 
+                        setSearchParams({...Object.fromEntries(searchParams), search:text.replace(' ', '+')});
+                    }
+                }}
+            >{text || ""}</small>
             {removable && <IoCloseOutline style={{cursor:"pointer"}} onClick={() => {
                 setTags(tags.toSpliced(index, 1));
             }}/>}

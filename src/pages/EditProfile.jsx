@@ -165,7 +165,7 @@ export default function EditProfile(){
             </div>
             <div className="formInputContainer">
                 <label>Tags</label>
-                <small className="characterLimit" style={{textAlign:"left"}}>Helps with discovery. Users can search for keywords (Max 3)</small>
+                <small className="characterLimit" style={{textAlign:"left"}}>Helps with discovery. Users can search for tags (Max 3)</small>
                 <Tags tags={keywords} setTags={setKeywords} max={3} />
             </div>
             <br />
