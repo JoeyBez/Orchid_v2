@@ -96,3 +96,23 @@ export async function isFollowing(follower, following){
     // console.log(data);
     return data ? true : false;
 }
+
+const formatter = new Intl.NumberFormat('en-US', {
+  notation: 'compact',
+  compactDisplay: 'short',
+  maximumFractionDigits: 1 // Adjust decimal places as needed
+});
+const formatter_over10k = new Intl.NumberFormat('en-US', {
+  notation: 'compact',
+  compactDisplay: 'short',
+  maximumFractionDigits: 0 // Adjust decimal places as needed
+});
+
+export function formatNumber(num){
+    return num > 9999 ? 
+    num > 99999 ?
+    formatter_over10k.format(num)
+    :
+    formatter.format(num) 
+    : num;
+}

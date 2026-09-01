@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import Profile from "./Profile";
 import './Profile.css'
 import { supabase } from "../../supabaseClient";
+import Loading from "../Loading";
 
 export default function FollowingList(params){
     const {authId} = params;
+    const [loading, setLoading] = useState(true);
     const [following, setFollowing] = useState([]);
     
     useEffect(() => {
         async function getFollowing(){
+            setLoading(true);
             const {data, error} = await supabase
             .from('followaccounts')
             .select('*')
@@ -19,7 +22,9 @@ export default function FollowingList(params){
                 return;
             }
             
+            data.sort((a, b) => {return new Date(b.date).getTime() - new Date(a.date).getTime();})
             setFollowing(data);
+            setLoading(false);
         }
         getFollowing(following);
     }, [authId]);
@@ -27,7 +32,10 @@ export default function FollowingList(params){
     return(
         <div className="profileSection">
             <p className="profileSectionHeader">Artists you follow</p>
-            {following.length > 0 ?
+            {loading ?
+            <Loading />
+            :
+            following.length > 0 ?
                 <div className="profileList">
                     {following.map((user) => (
                         <Profile user={user} key={user.id} />

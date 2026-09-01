@@ -28,15 +28,15 @@ function App() {
     <div>
       {location.pathname !== "/login" && 
       <header>
-        <Link to="/" className='link' reloadDocument><h2><IoHome /></h2></Link>
-        <Link className='logo link' to="/"><h2>Orchid</h2></Link>
-        <Link to={`/account?user=${user ? user.user.id : null}`} className='link' reloadDocument><h2><IoPersonCircle /></h2></Link>
+        {/* <Link to="/" className='link' reloadDocument><h2><IoHome /></h2></Link> */}
+        <div style={{float:"left"}}><Link className='logo link' to="/" reloadDocument><h2>Orchid</h2></Link></div>
+        <div style={{float:"right"}}><Link to={`/account?user=${user ? user.user.id : null}`} className='link' reloadDocument><h2><IoPersonCircle /></h2></Link></div>
       </header>
       }
       <div style={{marginBottom: "70px"}} />
       <div style={{padding: "20px"}}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home session={user}/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/account" element={<Account session={user || null} getSession={getSession}/>} />
            <Route path="/edit-profile" element={<EditProfile />} />
