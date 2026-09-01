@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import { IoHome, IoPersonCircle } from "react-icons/io5";
 import Account from './pages/Account';
 import EditProfile from './pages/EditProfile';
+import SearchBar from './components/SearchBar';
 
 function App() {
   const navigate = useNavigate();
@@ -29,8 +30,9 @@ function App() {
       {location.pathname !== "/login" && 
       <header>
         {/* <Link to="/" className='link' reloadDocument><h2><IoHome /></h2></Link> */}
-        <div style={{float:"left"}}><Link className='logo link' to="/" reloadDocument><h2>Orchid</h2></Link></div>
-        <div style={{float:"right"}}><Link to={`/account?user=${user ? user.user.id : null}`} className='link' reloadDocument><h2><IoPersonCircle /></h2></Link></div>
+        <div style={{textAlign:"left", width:"100%", alignContent:"center"}}><div style={{width:"fit-content"}}><Link className='logo link' to="/" reloadDocument><h3>Orchid</h3></Link></div></div>
+        <SearchBar />
+        <div style={{justifyItems:"right", width:"100%", alignContent:"center"}}><div style={{width:"fit-content"}}><Link to={`/account?user=${user ? user.user.id : null}`} className='link' reloadDocument><h2><IoPersonCircle /></h2></Link></div></div>
       </header>
       }
       <div style={{marginBottom: "70px"}} />

@@ -106,12 +106,6 @@ export default function Account(params){
                     </div> */}
                     <div style={{margin:"auto", marginTop:"30px"}} className="profileButtons">
                         {!yourAccount &&
-                        // ? 
-                        //     <div style={{display:"flex", gap:"5px"}}>
-                        //         <button className="editProfile" onClick={() => {changePage("/edit-profile", navigate)}}>Edit Profile</button>
-                        //         <button className="editProfile" onClick={signOut}>Log Out</button>
-                        //     </div>
-                        //     : 
                             <button className={`followButton ${isFollowingUser ? "following" : ""}`} onClick={() => follow(session.user.id, user.authId, updateCounts)}>{isFollowingUser ? "Following" : "Follow"}</button>
                         }
                     </div>

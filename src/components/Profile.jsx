@@ -6,7 +6,7 @@ export default function Profile(params){
     const {user} = params;
 
     return (
-        <div className="profileContainer" onClick={() => navigate(`/account?user=${user.authId}`)}>
+        <div className="profileContainer" onClick={() => {navigate(`/account?user=${user.authId}`); window.location.reload();}}>
             <div className="profilePic small"><img src={user.avatar || "/default.png"} /></div>
             <small>{user.name}</small>
         </div>

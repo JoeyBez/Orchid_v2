@@ -1,0 +1,26 @@
+.resultsArea{
+    position: absolute;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+    
+    left: -0px;
+    right: -5px;
+    top: 5px;
+    padding: 10px;
+    text-align: left;
+}
+
+.resultsGrid{
+    display: flex;
+    gap: 20px;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+}
+
+.searchResults{
+    position: relative;
+}
+.searchResults.hide{
+    display: none;
+}
