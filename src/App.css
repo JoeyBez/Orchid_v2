@@ -91,3 +91,33 @@ footer{
     font-size: 1.4rem;
     cursor: pointer;
 }
+
+.labelButton{
+    color: var(--accent);
+    background-color: white;
+    font-size: 0.9rem;
+    padding: 6px 12px 6px 12px;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--accent);
+    cursor: pointer;
+    text-align: center;
+    align-content: center;
+}
+/* .labelButton{
+    color: white;
+    background-color: var(--accent);
+    font-size: 0.9rem;
+    padding: 6px 12px 6px 12px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    text-align: center;
+    align-content: center;
+} */
+
+.emptyTab{
+    width: 100%;
+    text-align: center;
+    align-content: center;
+    color: grey;
+    min-height: 100px;
+}

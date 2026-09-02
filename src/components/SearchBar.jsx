@@ -14,9 +14,8 @@ export default function SearchBar(){
 
     useEffect(() => {
         async function getResults(){
-            setLoading(true);
-
             if(search.length < 1) {setResults([]); return;}
+            setLoading(true);
             const { data, error } = await supabase.rpc("search_artists", {
                 search_text: search
             });

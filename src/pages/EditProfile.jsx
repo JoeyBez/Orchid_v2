@@ -140,7 +140,7 @@ export default function EditProfile(){
             {uploading ? <Loading /> : <div>
                 <input type="file" accept="image/*" onChange={(e) => {uploadImage(e)}}/>
                 <br />
-                <small style={{color: uploadError == "Success" ? "green" : "red"}}>{uploadError}</small>
+                <small style={{color: uploadError == "Success" ? "green" : "red"}}>{uploadError}{uploadError != "Success" && uploadError && " (Max size is 30KB)"}</small>
             </div>}
         </div>
         <br />

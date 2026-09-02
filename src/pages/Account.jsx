@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 import Loading from "../Loading";
 import './Account.css'
-import { IoGlobeOutline, IoLocationOutline, IoLogoInstagram } from "react-icons/io5";
+import { IoAppsSharp, IoCartOutline, IoColorPaletteOutline, IoGlobeOutline, IoLocationOutline, IoLogoInstagram } from "react-icons/io5";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { changePage, follow, followerCount, followingCount, formatNumber, isFollowing } from "../functions";
 import FollowingList from "../components/FollowingList";
@@ -10,6 +10,10 @@ import { IoIosLink } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
 import ImageUpload from "../components/ImageUpload";
 import { Tag } from "../components/Tags";
+import { TabLayout } from "../components/TabLayout";
+import Collections from "./Collections";
+import Artwork from "./Artwork";
+import { GoGraph } from "react-icons/go";
 
 export default function Account(params){
     const navigate = useNavigate();
@@ -120,27 +124,18 @@ export default function Account(params){
                         <a href="https://joeybezner.com" target="_blank" className="textLink"><IoGlobeOutline /> Website</a>
                         <a href="https://joeybezner.com" target="_blank" className="textLink"><IoLogoInstagram /> Instagram</a>
                     </div> */}
-                    <div style={{margin:"auto", marginTop:"30px"}} className="profileButtons">
-                        {!yourAccount &&
-                            <button className={`followButton ${isFollowingUser ? "following" : ""}`} onClick={() => follow(session.user.id, user.authId, updateCounts)}>{isFollowingUser ? "Following" : "Follow"}</button>
-                        }
-                    </div>
+                    {!yourAccount && <div style={{margin:"auto", marginTop:"30px"}} className="profileButtons">
+                        <button className={`followButton ${isFollowingUser ? "following" : ""}`} onClick={() => follow(session.user.id, user.authId, updateCounts)}>{isFollowingUser ? "Following" : "Follow"}</button>
+                    </div>}
                 </div>
                 <br />
-                <div className="profileBackground">
-                    <div className="profileSection">
-                        <div style={{display:"grid", gridTemplateColumns:"1fr 1fr"}}>
-                            <p className="profileSectionHeader">Featured Work</p>
-                            {yourAccount && <div style={{textAlign:"right", alignContent:"center"}}>
-                                <ImageUpload />
-                            </div>}
-                        </div>
-                        <div className="emptyProfileSection"><small>No featured work</small></div>
-                    </div>
-                    {/* {yourAccount && 
-                    <FollowingList authId={user.authId}/>
-                    } */}
-                </div>
+                <br />
+                <TabLayout tabs={[
+                    { title:<IoAppsSharp />, element:<Collections yourAccount={yourAccount} /> },
+                    { title:<IoColorPaletteOutline />, element:<Artwork yourAccount={yourAccount} /> }, 
+                    { title:<IoCartOutline />, element:<div/> },
+                    { title:<GoGraph />, element:<div /> },
+                ]} />
             </div>
             }
         </div>
