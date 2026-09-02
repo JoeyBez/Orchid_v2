@@ -25,17 +25,14 @@ export async function getUser(id){
 }
 
 export async function followerCount(authId){
-    const { data, error } = await supabase
-    .from('follows')
-    .select('id')
-    .eq('following', authId);
+    const { data, error } = await supabase.rpc('follower_count', { user_id: authId })
 
     if(error){
         console.error(error);
         return 0;
     }
 
-    return data.length;
+    return data;
 }
 
 export async function followingCount(authId){
@@ -81,20 +78,17 @@ export async function follow(follower, following, updateCounts){
 }
 
 export async function isFollowing(follower, following){    
-    const { data, error } = await supabase
-    .from('follows')
-    .select('id')
-    .eq("follower", follower)
-    .eq("following", following)
-    .maybeSingle();
+    const { data, error } = await supabase.rpc('is_following', { 
+        user_one: follower,
+        user_two: following
+    })
 
     if(error){
         console.error(error);
         return false;
     }
 
-    // console.log(data);
-    return data ? true : false;
+    return data;
 }
 
 const formatter = new Intl.NumberFormat('en-US', {

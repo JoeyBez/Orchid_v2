@@ -1,0 +1,47 @@
+.discover-container{
+    width: 100%;
+    justify-items: center;
+    margin: 10px 0 20px 0
+}
+
+.discover-image{
+    border: 1px solid black;
+    border-radius: calc(var(--border-radius) * 3);
+    width: 90%;
+    max-width: 400px;
+    aspect-ratio: 1/1;
+    margin: auto;
+}
+
+.discover-image > img{
+    object-fit: contain;
+}
+
+.discover-buttons{
+    width: 90%;
+    max-width: 400px;
+    display: grid;
+    gap: 0px;
+    grid-template-columns: 2fr auto;
+    margin: auto;
+}
+
+.discover-buttons > div{
+    width: 100%;
+    /* align-content: center; */
+}
+
+.discover-buttons > div.left{
+    text-align: left;
+    justify-items: left;
+    font-size: 1.8rem;
+    /* color: rgb(186, 41, 65); */
+    color: var(--accent);
+}
+.discover-buttons > div.right{
+    text-align: right;
+    justify-items: right;
+    font-size: 1.8rem;
+    /* color: rgb(41, 128, 186); */
+    color: var(--accent);
+}

@@ -63,6 +63,7 @@ footer{
 .profilePic.small{
     width: 70px;
     height: 70px;
+    margin: auto;
 }
 .profilePic > img{
     object-fit: cover;
@@ -86,11 +87,11 @@ footer{
     height: 30px;
 }
 
-.labelButton{
+/* .labelButton{
     color: var(--accent);
     font-size: 1.4rem;
     cursor: pointer;
-}
+} */
 
 .labelButton{
     color: var(--accent);
@@ -119,5 +120,5 @@ footer{
     text-align: center;
     align-content: center;
     color: grey;
-    min-height: 100px;
+    min-height: 150px;
 }

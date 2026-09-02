@@ -9,9 +9,16 @@
     padding-bottom: 10px;
 }
 
-.profileContainer{
+.profileContainer.vertical{
     text-align: center;
-    justify-items: center;
-    width: min-content;
     cursor: pointer;
+    font-size: 1.2rem;
+}
+.profileContainer.horizontal{
+    text-align: left;
+    display: flex;
+    font-size: 1.2rem;
+    gap: 10px;
+    cursor: pointer;
+    width: fit-content;
 }

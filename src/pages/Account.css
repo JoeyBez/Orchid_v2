@@ -34,7 +34,7 @@
 
 .editProfile{
     position: absolute;
-    margin-top: 50px;
+    margin-top: 70px;
     color: var(--accent);
     cursor: pointer;
 }

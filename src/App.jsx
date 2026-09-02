@@ -35,7 +35,7 @@ function App() {
         <div style={{float:"right", width:"100%", alignContent:"center"}}><div style={{width:"fit-content", float:"right"}}><Link to={`/account?user=${user ? user.user.id : null}`} className='link' reloadDocument><h2><IoPersonCircle /></h2></Link></div></div>
       </header>
       }
-      <div style={{marginBottom: "70px"}} />
+      <div style={{marginBottom: "52px"}} />
       <div style={{padding: "20px"}}>
         <Routes>
           <Route path="/" element={<Home session={user}/>} />

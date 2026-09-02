@@ -57,7 +57,7 @@ export default function ImageUpload(){
 
     return (
         <div>
-            <label className="labelButton" htmlFor="newFeatured">+ Add</label>
+            <label className="labelButton" htmlFor="newFeatured">Add New</label>
             <input type="file" className="hide" id="newFeatured" />
         </div>
     );

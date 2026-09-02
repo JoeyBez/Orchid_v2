@@ -16,6 +16,7 @@ export default function FollowingList(params){
             .from('followaccounts')
             .select('*')
             .eq('follower', authId)
+            .limit(25)
 
             if(error){
                 console.log(error);

@@ -47,6 +47,10 @@ export default function Account(params){
             }
 
             setUser(data[0]);
+
+            const f = await followerCount(data[0].authId);
+            setFollowers(f);
+
             setLoading(false);
             // console.log(isf);
         }
@@ -99,7 +103,7 @@ export default function Account(params){
                     {yourAccount && <div className="editProfile left" onClick={signOut}>Log Out</div>}
                     <div className="accountHeaderInfo">
                         <div className="profilePic large" style={{border: "10px solid white", backgroundColor:"white", margin:"auto"}}><img src={user.avatar || "/default.png"} /></div>
-                        <div style={{margin:"auto"}}>
+                        <div style={{margin:"-10px auto auto auto"}}>
                             <p className="name">{user.name}</p>
                             <p className="title">{user.title}</p>
                         </div>
@@ -125,7 +129,11 @@ export default function Account(params){
                         <a href="https://joeybezner.com" target="_blank" className="textLink"><IoLogoInstagram /> Instagram</a>
                     </div> */}
                     {!yourAccount && <div style={{margin:"auto", marginTop:"30px"}} className="profileButtons">
-                        <button className={`followButton ${isFollowingUser ? "following" : ""}`} onClick={() => follow(session.user.id, user.authId, updateCounts)}>{isFollowingUser ? "Following" : "Follow"}</button>
+                        <button className={`followButton ${isFollowingUser ? "following" : ""}`} onClick={() => {
+                            setIsFollowingUser(!isFollowingUser); 
+                            setFollowers(isFollowingUser ? followers - 1 : followers + 1);
+                            follow(session.user.id, user.authId, updateCounts);
+                        }}>{isFollowingUser ? "Following" : "Follow"}</button>
                     </div>}
                 </div>
                 <br />
