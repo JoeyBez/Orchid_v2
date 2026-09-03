@@ -5,12 +5,14 @@ import Loading from '../Loading';
 import Profile from './Profile';
 import { IoArrowForwardCircle, IoHeartOutline, IoPersonAddOutline, IoPersonRemove } from 'react-icons/io5';
 import { Tag } from './Tags';
+import { supabase } from '../../supabaseClient';
 
 export default function Tinder({session}){
     const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState([]);
     const [account, setAccount] = useState();
     const [artwork, setArtwork] = useState();
-    const [next, SetNext] = useState(false);
+    const [next, SetNext] = useState(0);
 
     const [isFollowingUser, setIsFollowingUser] = useState(false);
 
@@ -18,24 +20,39 @@ export default function Tinder({session}){
         async function getAccount(){
             setLoading(true);
             if(!session) return;
-            const user = await getUser(session.user.id);
-            setAccount(user);
+            // const user = await getUser(session.user.id);
+            // setAccount(user);
 
-            const a = await getArtworks(user.auth_id);
-            setArtwork(a);
+            if(next >= search.length){
+                const {data} = await supabase.rpc('discover', {user_id: session.user.id});
+                setSearch(data);
+                const user = data[0];
+                setAccount(user)
+                await updateCounts(user);
+                SetNext(0);
+                
+                // const a = await getArtworks(user.auth_id);
+                // setArtwork(a);
+            }else{
+                const user = search[next];
+                setAccount(user)
+                await updateCounts(user);
+                // const a = await getArtworks(user.auth_id);
+                // setArtwork(a);
+            }
 
             setLoading(false);
         }
         getAccount();
-    }, [session, next]);
+    }, [next]);
 
-    useEffect(() => {
-        updateCounts();
-    }, [account])
+    // useEffect(() => {
+    //     updateCounts();
+    // }, [account])
 
-    async function updateCounts(){
-        if(!session || !account) return;
-        const isf = await isFollowing(session.user.id, account.auth_id);
+    async function updateCounts(user){
+        if(!session || !user) return;
+        const isf = await isFollowing(session.user.id, user.auth_id);
         setIsFollowingUser(isf);
     }
 
@@ -47,11 +64,11 @@ export default function Tinder({session}){
             minHeight:"550px"
         }}>
             {loading ?
-            <div style={{width:"100%", height:"50px"}}><Loading /></div>
+            <div></div>// <div style={{width:"100%", height:"50px"}}><Loading /></div>
             :
             <div className='discover-container'>
                 <div className="discover-image">
-                    <img src={artwork ? artwork[0] : null} alt="" />
+                    <img src={account.featured.length > 0 ? account.featured[0] : null} alt="" />
                 </div>
                 <br />
                 <div className='discover-buttons'>
@@ -60,7 +77,7 @@ export default function Tinder({session}){
                     </div>
                     
                     <div className='right' style={{fontSize:"1.7rem", display:"flex", flexDirection:"row-reverse", gap:"5px"}}>
-                        <div><div style={{width: "fit-content", cursor: "pointer"}} onClick={() => SetNext(!next)}><IoArrowForwardCircle /></div></div>
+                        <div><div style={{width: "fit-content", cursor: "pointer"}} onClick={() => SetNext(next + 1)}><IoArrowForwardCircle /></div></div>
                         <div><div style={{width: "fit-content", cursor: "pointer"}}><IoHeartOutline className='click' /></div></div>
                         <div><div 
                             style={{width: "fit-content", cursor: "pointer"}}

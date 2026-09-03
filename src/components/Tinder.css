@@ -15,6 +15,7 @@
     aspect-ratio: 1/1;
     margin: auto;
     align-content: center;
+    background-color: rgb(237, 237, 237);
 }
 
 .discover-image > img{
