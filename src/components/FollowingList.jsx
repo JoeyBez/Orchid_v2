@@ -5,7 +5,7 @@ import { supabase } from "../../supabaseClient";
 import Loading from "../Loading";
 
 export default function FollowingList(params){
-    const {authId} = params;
+    const {auth_id} = params;
     const [loading, setLoading] = useState(true);
     const [following, setFollowing] = useState([]);
     
@@ -15,7 +15,7 @@ export default function FollowingList(params){
             const {data, error} = await supabase
             .from('followaccounts')
             .select('*')
-            .eq('follower', authId)
+            .eq('follower', auth_id)
             .limit(25)
 
             if(error){
@@ -28,7 +28,7 @@ export default function FollowingList(params){
             setLoading(false);
         }
         getFollowing(following);
-    }, [authId]);
+    }, [auth_id]);
 
     return(
         <div className="profileSection">

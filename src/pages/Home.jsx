@@ -9,7 +9,7 @@ export default function Home(params){
             <h3 style={{fontWeight:"normal"}}>Discover</h3>
             {session && <div className="profileBackground">
                 <Tinder session={session}/>
-                <FollowingList authId={session.user.id}/>
+                <FollowingList auth_id={session.user.id}/>
             </div>}
         </div>
     );

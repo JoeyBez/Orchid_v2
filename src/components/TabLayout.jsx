@@ -24,13 +24,14 @@ export function TabLayout(params){
                     />
                 ))}
             </div>
+            <br />
             <div>
                 {tabs.map((tab, index) => (
                     <div 
                         className={selected == index ? "" : "hide"}
                         key={index}
                         style={{
-                            margin:"5px"
+                            marginTop:"1rem"
                         }}
                     >
                         {tab.element}

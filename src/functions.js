@@ -14,7 +14,7 @@ export async function getUser(id){
     const { data, error } = await supabase
     .from('users')
     .select('*')
-    .eq('authId', id);
+    .eq('auth_id', id);
 
     if(error){
         console.error(error);
@@ -24,8 +24,8 @@ export async function getUser(id){
     return data[0];
 }
 
-export async function followerCount(authId){
-    const { data, error } = await supabase.rpc('follower_count', { user_id: authId })
+export async function followerCount(auth_id){
+    const { data, error } = await supabase.rpc('follower_count', { user_id: auth_id })
 
     if(error){
         console.error(error);
@@ -35,11 +35,11 @@ export async function followerCount(authId){
     return data;
 }
 
-export async function followingCount(authId){
+export async function followingCount(auth_id){
     const { data, error } = await supabase
     .from('follows')
     .select('id')
-    .eq('follower', authId);
+    .eq('follower', auth_id);
 
     if(error){
         console.error(error);
@@ -109,4 +109,18 @@ export function formatNumber(num){
     :
     formatter.format(num) 
     : num;
+}
+
+export async function getArtworks(id){
+    const { data, error } = await supabase.rpc('get_artworks', { 
+        auth_id: id
+    })
+
+    if(error){
+        console.error(error);
+        return [];
+    }
+
+    if(!data) return [];
+    return data;
 }

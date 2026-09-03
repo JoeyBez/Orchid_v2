@@ -1,20 +1,25 @@
 .discover-container{
+    opacity: 0;
     width: 100%;
     justify-items: center;
-    margin: 10px 0 20px 0
+    margin: 10px 0 20px 0;
+    animation: fadeIn 0.5s ease forwards;
 }
 
 .discover-image{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: calc(var(--border-radius) * 3);
+    overflow: hidden;
     width: 90%;
     max-width: 400px;
     aspect-ratio: 1/1;
     margin: auto;
+    align-content: center;
 }
 
 .discover-image > img{
-    object-fit: contain;
+    object-fit: fill;
+    width: 100%;
 }
 
 .discover-buttons{
@@ -44,4 +49,15 @@
     font-size: 1.8rem;
     /* color: rgb(41, 128, 186); */
     color: var(--accent);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(25vw);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

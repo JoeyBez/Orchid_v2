@@ -1,6 +1,6 @@
 import { IoAdd } from "react-icons/io5";
 
-export default function ImageUpload(){
+export default function ImageUpload({symbol = false}){
     
     // async function uploadImage(e){
     //     const file = e.target.files[0];
@@ -57,7 +57,7 @@ export default function ImageUpload(){
 
     return (
         <div>
-            <label className="labelButton" htmlFor="newFeatured">Add New</label>
+            <label className="labelButton" htmlFor="newFeatured">Add</label>
             <input type="file" className="hide" id="newFeatured" />
         </div>
     );

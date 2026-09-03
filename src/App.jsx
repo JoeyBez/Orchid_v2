@@ -30,9 +30,12 @@ function App() {
       {location.pathname !== "/login" && 
       <header>
         {/* <Link to="/" className='link' reloadDocument><h2><IoHome /></h2></Link> */}
-        <div style={{textAlign:"left", width:"100%", alignContent:"center"}}><div style={{width:"fit-content"}}><Link className='logo link' to="/" reloadDocument><h3>Orchid</h3></Link></div></div>
+        <div style={{textAlign:"left", width:"100%", alignContent:"center"}}><div style={{width:"fit-content"}}><Link className='logo link' to="/" reloadDocument>
+          <h3 className='homeDesktop'>Orchid</h3>
+          <IoHome className='homeMobile' />
+        </Link></div></div>
         <SearchBar />
-        <div style={{float:"right", width:"100%", alignContent:"center"}}><div style={{width:"fit-content", float:"right"}}><Link to={`/account?user=${user ? user.user.id : null}`} className='link' reloadDocument><h2><IoPersonCircle /></h2></Link></div></div>
+        <div style={{float:"right", width:"100%", alignContent:"center"}}><div style={{width:"fit-content", float:"right"}}><Link to={`/account?user=${user ? user.user.id : null}`} className='link' reloadDocument><IoPersonCircle style={{fontSize:"1.5rem"}} /></Link></div></div>
       </header>
       }
       <div style={{marginBottom: "52px"}} />

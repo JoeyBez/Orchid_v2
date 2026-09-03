@@ -38,7 +38,7 @@ export default function Account(params){
             const { data, error } = await supabase
             .from('users')
             .select('*')
-            .eq('authId', id);
+            .eq('auth_id', id);
 
             if(error){
                 console.error(error);
@@ -48,7 +48,7 @@ export default function Account(params){
 
             setUser(data[0]);
 
-            const f = await followerCount(data[0].authId);
+            const f = await followerCount(data[0].auth_id);
             setFollowers(f);
 
             setLoading(false);
@@ -81,12 +81,12 @@ export default function Account(params){
     }, [session, user]);
 
     async function updateCounts(){
-        const isf = await isFollowing(session.user.id, user.authId);
+        const isf = await isFollowing(session.user.id, user.auth_id);
         setIsFollowingUser(isf);
 
-        const f = await followerCount(user.authId);
+        const f = await followerCount(user.auth_id);
         setFollowers(f);
-        // const fing = await followingCount(user.authId);
+        // const fing = await followingCount(user.auth_id);
         // setFollowing(fing);
     }
     
@@ -102,7 +102,7 @@ export default function Account(params){
                     {yourAccount && <div className="editProfile right" onClick={() => {changePage("/edit-profile", navigate)}}><FaRegEdit /></div>}
                     {yourAccount && <div className="editProfile left" onClick={signOut}>Log Out</div>}
                     <div className="accountHeaderInfo">
-                        <div className="profilePic large" style={{border: "10px solid white", backgroundColor:"white", margin:"auto"}}><img src={user.avatar || "/default.png"} /></div>
+                        <div className="profilePic large"><img src={user.avatar || "/default.png"} /></div>
                         <div style={{margin:"-10px auto auto auto"}}>
                             <p className="name">{user.name}</p>
                             <p className="title">{user.title}</p>
@@ -132,15 +132,16 @@ export default function Account(params){
                         <button className={`followButton ${isFollowingUser ? "following" : ""}`} onClick={() => {
                             setIsFollowingUser(!isFollowingUser); 
                             setFollowers(isFollowingUser ? followers - 1 : followers + 1);
-                            follow(session.user.id, user.authId, updateCounts);
+                            follow(session.user.id, user.auth_id, updateCounts);
                         }}>{isFollowingUser ? "Following" : "Follow"}</button>
                     </div>}
                 </div>
                 <br />
                 <br />
+                <br />
                 <TabLayout tabs={[
                     { title:<IoAppsSharp />, element:<Collections yourAccount={yourAccount} /> },
-                    { title:<IoColorPaletteOutline />, element:<Artwork yourAccount={yourAccount} /> }, 
+                    { title:<IoColorPaletteOutline />, element:<Artwork userId={user.auth_id} yourAccount={yourAccount} /> }, 
                     { title:<IoCartOutline />, element:<div/> },
                     { title:<GoGraph />, element:<div /> },
                 ]} />

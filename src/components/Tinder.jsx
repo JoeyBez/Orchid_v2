@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import './Tinder.css';
-import { follow, getUser, isFollowing } from '../functions';
+import { follow, getArtworks, getUser, isFollowing } from '../functions';
 import Loading from '../Loading';
 import Profile from './Profile';
-import { IoArrowForward, IoClose, IoHeartOutline } from 'react-icons/io5';
+import { IoArrowForward, IoArrowForwardCircle, IoClose, IoHeartOutline, IoPersonAddOutline, IoPersonRemove } from 'react-icons/io5';
 import { TbPlayerTrackNext } from "react-icons/tb";
 
 export default function Tinder({session}){
     const [loading, setLoading] = useState(true);
     const [account, setAccount] = useState();
+    const [artwork, setArtwork] = useState();
+    const [next, SetNext] = useState(false);
 
     const [isFollowingUser, setIsFollowingUser] = useState(false);
 
@@ -18,10 +20,14 @@ export default function Tinder({session}){
             if(!session) return;
             const user = await getUser(session.user.id);
             setAccount(user);
+
+            const a = await getArtworks(user.auth_id);
+            setArtwork(a);
+
             setLoading(false);
         }
         getAccount();
-    }, [session]);
+    }, [session, next]);
 
     useEffect(() => {
         updateCounts();
@@ -29,7 +35,7 @@ export default function Tinder({session}){
 
     async function updateCounts(){
         if(!session || !account) return;
-        const isf = await isFollowing(session.user.id, account.authId);
+        const isf = await isFollowing(session.user.id, account.auth_id);
         setIsFollowingUser(isf);
     }
 
@@ -38,14 +44,14 @@ export default function Tinder({session}){
             textAlign:"center",
             justifyItems:"center",
             alignContent:"center",
-            minHeight:"450px"
+            minHeight:"550px"
         }}>
             {loading ?
             <div style={{width:"100%", height:"50px"}}><Loading /></div>
             :
             <div className='discover-container'>
                 <div className="discover-image">
-                    <img src={null} alt="" />
+                    <img src={artwork ? artwork[0] : null} alt="" />
                 </div>
                 <br />
                 <div className='discover-buttons'>
@@ -53,18 +59,26 @@ export default function Tinder({session}){
                         <Profile user={account} horizontal={true} title={true} />
                     </div>
                     
-                    <div className='right' style={{display:"flex", flexDirection:"row-reverse", gap:"5px"}}>
-                        <div><div style={{width: "fit-content", cursor: "pointer"}}><IoClose /></div></div>
+                    <div className='right' style={{fontSize:"1.7rem", display:"flex", flexDirection:"row-reverse", gap:"5px"}}>
+                        <div><div style={{width: "fit-content", cursor: "pointer"}} onClick={() => SetNext(!next)}><IoArrowForwardCircle /></div></div>
                         <div><div style={{width: "fit-content", cursor: "pointer"}}><IoHeartOutline /></div></div>
+                        <div><div 
+                            style={{width: "fit-content", cursor: "pointer"}}
+                            onClick={() => {
+                                setIsFollowingUser(!isFollowingUser); 
+                                follow(session.user.id, account.auth_id, updateCounts);
+                            }}
+                        >{isFollowingUser ? <IoPersonRemove /> : <IoPersonAddOutline />}
+                        </div></div>
                     </div>
                 </div>
                 <br />
-                <button className={`followButton ${isFollowingUser ? "following" : ""}`} onClick={() => {
+                {/* <button className={`followButton ${isFollowingUser ? "following" : ""}`} onClick={() => {
                     setIsFollowingUser(!isFollowingUser); 
-                    follow(session.user.id, account.authId, updateCounts);
+                    follow(session.user.id, account.auth_id, updateCounts);
                 }}>
                     {isFollowingUser ? "Following" : "Follow"}
-                </button>
+                </button> */}
             </div>
             }
         </div>

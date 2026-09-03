@@ -6,7 +6,7 @@ export default function Profile({user, horizontal = false, title = false}){
     const navigate = useNavigate();
 
     return (
-        <div className={`profileContainer ${horizontal ? "horizontal" : "vertical"}`} onClick={() => {navigate(`/account?user=${user.authId}`); window.location.reload();}}>
+        <div className={`profileContainer ${horizontal ? "horizontal" : "vertical"}`} onClick={() => {navigate(`/account?user=${user.auth_id}`); window.location.reload();}}>
             <div className="profilePic small"><img src={user.avatar || "/default.png"} /></div>
             <div style={{display:"flex", flexDirection:"column", marginTop:"8px"}}>
                 <small style={{width:"90px", textWrap:"wrap"}}>{user.name}</small>
