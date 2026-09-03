@@ -3,8 +3,8 @@ import './Tinder.css';
 import { follow, getArtworks, getUser, isFollowing } from '../functions';
 import Loading from '../Loading';
 import Profile from './Profile';
-import { IoArrowForward, IoArrowForwardCircle, IoClose, IoHeartOutline, IoPersonAddOutline, IoPersonRemove } from 'react-icons/io5';
-import { TbPlayerTrackNext } from "react-icons/tb";
+import { IoArrowForwardCircle, IoHeartOutline, IoPersonAddOutline, IoPersonRemove } from 'react-icons/io5';
+import { Tag } from './Tags';
 
 export default function Tinder({session}){
     const [loading, setLoading] = useState(true);
@@ -55,24 +55,31 @@ export default function Tinder({session}){
                 </div>
                 <br />
                 <div className='discover-buttons'>
-                    <div style={{justifyItems:"normal", width:"90%", maxWidth:"400px"}}>
+                    <div style={{justifyItems:"normal", width:"100%", maxWidth:"400px"}}>
                         <Profile user={account} horizontal={true} title={true} />
                     </div>
                     
                     <div className='right' style={{fontSize:"1.7rem", display:"flex", flexDirection:"row-reverse", gap:"5px"}}>
                         <div><div style={{width: "fit-content", cursor: "pointer"}} onClick={() => SetNext(!next)}><IoArrowForwardCircle /></div></div>
-                        <div><div style={{width: "fit-content", cursor: "pointer"}}><IoHeartOutline /></div></div>
+                        <div><div style={{width: "fit-content", cursor: "pointer"}}><IoHeartOutline className='click' /></div></div>
                         <div><div 
                             style={{width: "fit-content", cursor: "pointer"}}
                             onClick={() => {
                                 setIsFollowingUser(!isFollowingUser); 
                                 follow(session.user.id, account.auth_id, updateCounts);
                             }}
-                        >{isFollowingUser ? <IoPersonRemove /> : <IoPersonAddOutline />}
+                        >{isFollowingUser ? <IoPersonRemove className='click' /> : <IoPersonAddOutline className='click' />}
                         </div></div>
                     </div>
                 </div>
-                <br />
+                <div style={{width:"100%", maxWidth: "400px"}}>
+                    <div className='discover-tags'>
+                        {account.keywords.length > 0 && account.keywords.split(', ').map((value, index) => (
+                            <Tag text={value} key={index} removable={false} />
+                        ))}
+                    </div>
+                    <p className='discover-bio'>{account.bio}</p>
+                </div>
                 {/* <button className={`followButton ${isFollowingUser ? "following" : ""}`} onClick={() => {
                     setIsFollowingUser(!isFollowingUser); 
                     follow(session.user.id, account.auth_id, updateCounts);

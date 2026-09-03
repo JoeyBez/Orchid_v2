@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 import Loading from "../Loading";
 import './Account.css'
-import { IoAppsSharp, IoCartOutline, IoColorPaletteOutline, IoGlobeOutline, IoLocationOutline, IoLogoInstagram } from "react-icons/io5";
+import { IoApps, IoAppsOutline, IoAppsSharp, IoCart, IoCartOutline, IoColorPalette, IoColorPaletteOutline, IoGlobeOutline, IoLocationOutline, IoLogoInstagram } from "react-icons/io5";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { changePage, follow, followerCount, followingCount, formatNumber, isFollowing } from "../functions";
 import FollowingList from "../components/FollowingList";
@@ -140,10 +140,10 @@ export default function Account(params){
                 <br />
                 <br />
                 <TabLayout tabs={[
-                    { title:<IoAppsSharp />, element:<Collections yourAccount={yourAccount} /> },
-                    { title:<IoColorPaletteOutline />, element:<Artwork userId={user.auth_id} yourAccount={yourAccount} /> }, 
-                    { title:<IoCartOutline />, element:<div/> },
-                    { title:<GoGraph />, element:<div /> },
+                    { text:<IoAppsOutline />, selectedText: <IoApps />, element:<Collections yourAccount={yourAccount} /> },
+                    { text:<IoColorPaletteOutline />, selectedText: <IoColorPalette />, element:<Artwork userId={user.auth_id} yourAccount={yourAccount} /> }, 
+                    { text:<IoCartOutline />, selectedText: <IoCart />, element:<div/> },
+                    { text:<GoGraph />, selectedText: <GoGraph />, element:<div /> },
                 ]} />
             </div>
             }

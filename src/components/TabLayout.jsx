@@ -16,7 +16,8 @@ export function TabLayout(params){
             }}>
                 {tabs.map((tab, index) => (
                     <Tab 
-                        text={tab.title} 
+                        text={tab.text}
+                        selectedText={tab.selectedText} 
                         selected={selected == index} 
                         index={index} 
                         setSelected={setSelected} 
@@ -43,7 +44,7 @@ export function TabLayout(params){
 }
 
 function Tab(params){
-    const {text, selected, index, setSelected} = params;
+    const {text, selectedText, selected, index, setSelected} = params;
 
     return(
         <div 
@@ -57,12 +58,12 @@ function Tab(params){
         >
             <div style={{
                 width:"50px",
-                borderBottom: selected ? "1px solid var(--accent)" : "",
+                borderBottom: selected ? "2px solid var(--accent)" : "",
                 paddingBottom:"10px",
                 color: selected ? "var(--accent" : "grey",
                 fontSize:"1.2rem"
             }}>
-                {text}
+                {selected ? selectedText : text}
             </div>
         </div>
     )

@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     getSession();
-  }, [window.location.href]);
+  }, []);
 
   return (
     <div>
