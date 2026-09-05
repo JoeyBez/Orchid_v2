@@ -24,8 +24,8 @@ export async function getUser(id){
     return data[0];
 }
 
-export async function followerCount(auth_id){
-    const { data, error } = await supabase.rpc('follower_count', { user_id: auth_id })
+export async function followerCount(auth_id, type = 'follow'){
+    const { data, error } = await supabase.rpc('follower_count', { user_id: auth_id, action: type })
 
     if(error){
         console.error(error);
@@ -35,29 +35,16 @@ export async function followerCount(auth_id){
     return data;
 }
 
-export async function followingCount(auth_id){
-    const { data, error } = await supabase
-    .from('follows')
-    .select('id')
-    .eq('follower', auth_id);
-
-    if(error){
-        console.error(error);
-        return 0;
-    }
-
-    return data.length;
-}
-
-export async function follow(follower, following, updateCounts){
-    const isf = await isFollowing(follower, following);
+export async function follow(follower, following, updateCounts, type = 'follow'){
+    const isf = await isFollowing(follower, following, type);
 
     if(isf){
         const {error} = await supabase
         .from('follows')
         .delete()
         .eq('follower', follower)
-        .eq("following", following);
+        .eq("following", following)
+        .eq('type', type);
 
         if(error){
             console.error(error);
@@ -66,7 +53,7 @@ export async function follow(follower, following, updateCounts){
     }else{
         const {error} = await supabase
         .from('follows')
-        .insert({follower: follower, following: following})
+        .insert({follower: follower, following: following, type: type})
 
         if(error){
             console.error(error);
@@ -77,10 +64,11 @@ export async function follow(follower, following, updateCounts){
     updateCounts();
 }
 
-export async function isFollowing(follower, following){    
+export async function isFollowing(follower, following, type = 'follow'){    
     const { data, error } = await supabase.rpc('is_following', { 
         user_one: follower,
-        user_two: following
+        user_two: following,
+        action: type
     })
 
     if(error){

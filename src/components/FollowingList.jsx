@@ -16,6 +16,7 @@ export default function FollowingList(params){
             .from('followaccounts')
             .select('*')
             .eq('follower', auth_id)
+            .eq('type', 'follow')
             .limit(25)
 
             if(error){

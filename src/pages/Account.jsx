@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 import Loading from "../Loading";
 import './Account.css'
-import { IoApps, IoAppsOutline, IoAppsSharp, IoCart, IoCartOutline, IoColorPalette, IoColorPaletteOutline, IoGlobeOutline, IoLocationOutline, IoLogoInstagram } from "react-icons/io5";
+import { IoApps, IoAppsOutline, IoAppsSharp, IoCart, IoCartOutline, IoColorPalette, IoColorPaletteOutline, IoGlobeOutline, IoHeart, IoHeartOutline, IoLocationOutline, IoLogoInstagram } from "react-icons/io5";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { changePage, follow, followerCount, followingCount, formatNumber, isFollowing } from "../functions";
+import { changePage, follow, followerCount, formatNumber, isFollowing } from "../functions";
 import FollowingList from "../components/FollowingList";
 import { IoIosLink } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
@@ -25,8 +25,9 @@ export default function Account(params){
     const [yourAccount, setYourAccount] = useState(false);
 
     const [followers, setFollowers] = useState(" ");
-    const [following, setFollowing] = useState(0);
+    const [likes, setLikes] = useState(" ");
     const [isFollowingUser, setIsFollowingUser] = useState(false);
+    const [likedUser, setLikedUser] = useState(false);
 
     useEffect(() => {
         async function getUser(){
@@ -50,6 +51,8 @@ export default function Account(params){
 
             const f = await followerCount(data[0].auth_id);
             setFollowers(f);
+            // const l = await followerCount(data[0].auth_id, 'like');
+            // setLikes(l);
 
             setLoading(false);
             // console.log(isf);
@@ -83,11 +86,13 @@ export default function Account(params){
     async function updateCounts(){
         const isf = await isFollowing(session.user.id, user.auth_id);
         setIsFollowingUser(isf);
+        // const isl = await isFollowing(session.user.id, user.auth_id, 'like');
+        // setLikedUser(isl);
 
         const f = await followerCount(user.auth_id);
         setFollowers(f);
-        // const fing = await followingCount(user.auth_id);
-        // setFollowing(fing);
+        // const l = await followerCount(user.auth_id, 'like');
+        // setLikes(l);
     }
     
     return (
@@ -107,7 +112,10 @@ export default function Account(params){
                             <p className="name">{user.name}</p>
                             <p className="title">{user.title}</p>
                         </div>
-                        <div style={{margin:"-0.5rem auto -0.5rem auto"}} className="location">{hasLocation() && <p><IoLocationOutline />{user.city.id > -1 ? ` ${user.city.name}` : ""}{user.state.id > -1 ? ` ${user.state.state_code}` : ""} &nbsp;&bull;&nbsp;&nbsp;</p>}<p><b>{formatNumber(followers)}</b> followers</p></div>
+                        <div style={{margin:"-0.5rem auto -0.5rem auto"}} className="location">{hasLocation() && <p><IoLocationOutline />{user.city.id > -1 ? ` ${user.city.name}` : ""}{user.state.id > -1 ? ` ${user.state.state_code}` : ""} &nbsp;&bull;&nbsp;&nbsp;</p>}
+                            <p><b>{formatNumber(followers)}</b> followers</p>
+                            {/* <p><b>{formatNumber(likes)}</b> likes</p> */}
+                        </div>
                         <div style={{margin:"auto"}} className="bio"><p>{user.bio}</p></div>
                         {user.keywords.length > 0 && <div style={{
                             marginLeft:"auto",
@@ -134,6 +142,12 @@ export default function Account(params){
                             setFollowers(isFollowingUser ? followers - 1 : followers + 1);
                             follow(session.user.id, user.auth_id, updateCounts);
                         }}>{isFollowingUser ? "Following" : "Follow"}</button>
+
+                        {/* <button className={`followButton ${likedUser ? "following" : ""}`} style={{width:"fit-content"}} onClick={() => {
+                            setLikedUser(!likedUser); 
+                            setLikes(likedUser ? likes - 1 : likes + 1);
+                            follow(session.user.id, user.auth_id, updateCounts, 'like');
+                        }}>{likedUser ? <IoHeart className="click" style={{fontSize:"1.2rem"}} /> : <IoHeartOutline className="click" style={{fontSize:"1.2rem"}} />}</button> */}
                     </div>}
                 </div>
                 <br />
@@ -141,7 +155,7 @@ export default function Account(params){
                 <br />
                 <TabLayout tabs={[
                     { text:<IoAppsOutline />, selectedText: <IoApps />, element:<Collections yourAccount={yourAccount} /> },
-                    { text:<IoColorPaletteOutline />, selectedText: <IoColorPalette />, element:<Artwork userId={user.auth_id} yourAccount={yourAccount} /> }, 
+                    { text:<IoColorPaletteOutline />, selectedText: <IoColorPalette />, element:<Artwork user={user} yourAccount={yourAccount} /> }, 
                     { text:<IoCartOutline />, selectedText: <IoCart />, element:<div/> },
                     { text:<GoGraph />, selectedText: <GoGraph />, element:<div /> },
                 ]} />

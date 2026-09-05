@@ -5,7 +5,7 @@ import Loading from "../Loading";
 import { useSearchParams } from "react-router-dom";
 
 export default function Artwork(params){
-    const {userId, yourAccount} = params;
+    const {user, yourAccount} = params;
     const [searchParams, setSearchParams] = useSearchParams();
     const [artworks, setArtworks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -13,12 +13,12 @@ export default function Artwork(params){
     useEffect(() => {
         async function getWorks(){
             setLoading(true);
-            const a = await getArtworks(userId);
-            setArtworks(a);
+            // const a = await getArtworks(userId);
+            setArtworks(user.featured);
             setLoading(false);
         }
         getWorks();
-    }, [userId]);
+    }, [user]);
 
     return(
         <div>

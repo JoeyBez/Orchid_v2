@@ -90,6 +90,8 @@
 
 .profileButtons{
     margin-top: 30px;
+    gap:0.2rem;
+    display: flex;
 }
 
 .profileCount{
